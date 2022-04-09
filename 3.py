@@ -12,38 +12,36 @@ import pandas as pd
 
 
 
-column_name = ['a', 'b', 'c', 'd', 'e',
-               'f', 'g']
+column_name = ['a', 'b', 'c', 'd', 'e','f', 'g', 'h']
 
 raw_data = pd.read_excel('/workspace/ai_test.xlsx',
                          header=None, names=column_name)
 
 # print(raw_data.head(20))
-print(raw_data.describe().T)
+# print(raw_data.describe().T)
 
 # raw_data.info()
-# clean_data = raw_data.replace('?', np.nan)
-# clean_data = clean_data.dropna()
+clean_data = raw_data.replace('?', np.nan)
+clean_data = clean_data.dropna()
 
 # print(clean_data.info())
+# print(clean_data)
 
-# keep = column_name.pop()
+keep = column_name.pop()
 
-# print(keep)
+print(keep)
 
-# print(column_name)
+training_data = clean_data[column_name]
 
-# training_data = clean_data[column_name]
-
-# target = clean_data[[keep]]
+target = clean_data[[keep]]
 
 # print(training_data)
+
+# print(target)
 
 # print(training_data.head())
 
 # print(target.head())
-
-
 
 # print(target['HeartDisease'].sum())
 
@@ -125,3 +123,4 @@ from sklearn.preprocessing import StandardScaler
 #
 #             validation_split=0.2, verbose=1)
 #
+
