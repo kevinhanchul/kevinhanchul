@@ -12,33 +12,32 @@ import pandas as pd
 
 
 
-column_name = ['age', 'sex', 'cp', 'treshbps', 'chol', 
-               'fbs', 'restecg', 'thalach', 'exang', 'oldpeak',
-               'slope', 'ca', 'thal', 'HeartDisease']
+column_name = ['a', 'b', 'c', 'd', 'e',
+               'f', 'g']
 
-raw_data = pd.read_excel('/datasets/heart-disease.xlsx',
+raw_data = pd.read_excel('/workspace/ai_test.xlsx',
                          header=None, names=column_name)
 
 # print(raw_data.head(20))
-# print(raw_data.describe().T)
+print(raw_data.describe().T)
 
-raw_data.info()
-clean_data = raw_data.replace('?', np.nan)
-clean_data = clean_data.dropna()
+# raw_data.info()
+# clean_data = raw_data.replace('?', np.nan)
+# clean_data = clean_data.dropna()
 
 # print(clean_data.info())
 
-keep = column_name.pop()
+# keep = column_name.pop()
 
 # print(keep)
 
 # print(column_name)
 
-training_data = clean_data[column_name]
+# training_data = clean_data[column_name]
 
 # target = clean_data[[keep]]
 
-print(training_data)
+# print(training_data)
 
 # print(training_data.head())
 
