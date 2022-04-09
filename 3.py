@@ -1,4 +1,3 @@
-# X_train : (207, 13) => 자료를 만들어 보자
 
 
 from tensorflow.keras.models import Sequential
@@ -14,38 +13,20 @@ import pandas as pd
 
 
 column_name = ['age', 'sex', 'cp', 'treshbps', 'chol', 
-
                'fbs', 'restecg', 'thalach', 'exang', 'oldpeak',
-
                'slope', 'ca', 'thal', 'HeartDisease']
 
-
-
 raw_data = pd.read_excel('/datasets/heart-disease.xlsx',
+                         header=None, names=column_name)
 
-                         header=None, names=column_name)  
-
-
-
-# print(raw_data.head(20))      
-
-
-
+# print(raw_data.head(20))
 # print(raw_data.describe().T)
 
-
-
 raw_data.info()
-
-
-
 clean_data = raw_data.replace('?', np.nan)
-
 clean_data = clean_data.dropna()
 
 # print(clean_data.info())
-
-
 
 keep = column_name.pop()
 
@@ -53,13 +34,11 @@ keep = column_name.pop()
 
 # print(column_name)
 
-
-
 training_data = clean_data[column_name]
 
-target = clean_data[[keep]]
+# target = clean_data[[keep]]
 
-# print(training_data)
+print(training_data)
 
 # print(training_data.head())
 
@@ -69,15 +48,9 @@ target = clean_data[[keep]]
 
 # print(target['HeartDisease'].sum())
 
-
-
 # print(target['HeartDisease'].mean())
 
-
-
 # print(scaled_data.describe().T)
-
-
 
 # scaled_data.boxplot(column=column_name,
 
@@ -85,31 +58,29 @@ target = clean_data[[keep]]
 
 # plt.show()
 
-
-
 from sklearn.preprocessing import StandardScaler
 #
-scaler = StandardScaler()
-
-scaled_data = scaler.fit_transform(training_data)
-
-# print(type(scaled_data))
-
-scaled_data = pd.DataFrame(scaled_data, columns=column_name)
+# scaler = StandardScaler()
 #
-# print(scaled_data.head())
-
-# print(scaled_data)
-
-from sklearn.model_selection import train_test_split
-
-X_train, X_test, Y_train, Y_test = train_test_split(
-
-    scaled_data, target, test_size=0.30)
+# scaled_data = scaler.fit_transform(training_data)
+#
+# # print(type(scaled_data))
+#
+# scaled_data = pd.DataFrame(scaled_data, columns=column_name)
+# #
+# # print(scaled_data.head())
+#
+# # print(scaled_data)
+#
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, Y_train, Y_test = train_test_split(
+#
+#     scaled_data, target, test_size=0.30)
 
 # print(X_train)
 #
-print('X_train :', X_train.shape)
+# print('X_train :', X_train.shape)
 
 # print('X_test :', X_test.shape)
 #
