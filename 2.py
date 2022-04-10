@@ -13,4 +13,4 @@ class Mart:
 Mart1 = [0,1,2,3]
 
 Mart1[0] = Mart(1, '아이템', 1500, 3)
-print(Mart1[0])
+print(Mart1[0].no)
