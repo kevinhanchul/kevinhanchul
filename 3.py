@@ -32,63 +32,40 @@ keep = column_name.pop()
 # print(keep)
 
 training_data = clean_data[column_name]
-
 target = clean_data[[keep]]
 
 # print(training_data)
-
 # print(target)
-
 # print(training_data.head())
-
 # print(target.head())
-
 # print(target['h'].sum())
-
 # print(target['h'].mean())
-
-# print(scaled_data.describe().T)
-
-# scaled_data.boxplot(column=column_name,
-
-#                     showmeans=True)
 
 # plt.show()
 
 from sklearn.preprocessing import StandardScaler
-#
 scaler = StandardScaler()
-#
 scaled_data = scaler.fit_transform(training_data)
 # print(scaled_data)
-#
 # print(type(scaled_data))
-#
 scaled_data = pd.DataFrame(scaled_data, columns=column_name)
-# #
 # print(scaled_data.head())
-#
 # print(scaled_data)
-#
+
 from sklearn.model_selection import train_test_split
-#
+
 X_train, X_test, Y_train, Y_test = train_test_split(
-#
     scaled_data, target, test_size=0.30)
 
 # print(X_train)
 # print(Y_train)
 #
 # print('X_train :', X_train.shape)
-
 # print('X_test :', X_test.shape)
-#
 # print('Y_train :', Y_train.shape)
-#
 # print('Y_test :', Y_test.shape)
 #
 #
-##
 model = Sequential()
 model.add(Dense(512, input_dim=7, activation='relu'))   #7는 X_train의 열의 개수이여야 한다. 마지막 keep를 빼면 7이다.
 model.add(Dropout(0.25))
