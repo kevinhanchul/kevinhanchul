@@ -13,6 +13,9 @@ res.raise_for_status()
 soup = BeautifulSoup(res.text, "lxml")
 # print(soup)
 
-a = soup.findAll('td',{'class':'title'})
-# a = a.find('a').get_text()
+a = soup.find('td',{'class':'title'})
+a = a.a['href']
+a = a[-9:]
 print(a)
+
+#   /qna/detail.naver?d1id=4&dirId=40201&docId=416963427
