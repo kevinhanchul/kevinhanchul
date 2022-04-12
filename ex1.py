@@ -1,4 +1,4 @@
-# 그림 맞추기인가?
+# x_train에는 총 60000개의 28×28 크기의 이미지가 담겨 있으며
 
 
 import numpy as np
@@ -52,26 +52,33 @@ x_test = x_test / 255
 print('=====   x_train reshape하고, 255로 나눈 데이타   =====')
 print(x_train.shape)
 
+model = Sequential()
+model.add(Dense(128, input_dim= 28 * 28,
+                activation='relu'))
+model.add(Dense(128, activation='relu'))
+model.add(Dense(10, activation='softmax'))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy',
               metrics=['accuracy'])
 
+print('=====   model 썸머리 데이타   =====')
 print(model.summary())
 
-# fit_hist = model.fit(x_train, y_train, batch_size=128,
-#     epochs=15, validation_split=0.2, verbose=1)
+fit_hist = model.fit(x_train, y_train, batch_size=128,
+    epochs=15, validation_split=0.2, verbose=1)
 
+score = model.evaluate(x_test, y_test, verbose=0)
+print('Final test set loss :', score[0])
+print('Final test set accurecy :', score[1])
 
-# score = model.evaluate(x_test, y_test, verbose=0)
-# print('Final test set accurecy :', score[1])
-#
-# plt.plot(fit_hist.history['accuracy'])
-# plt.plot(fit_hist.history['val_accuracy'])
+# plt.plot(fit_hist.history['acc'])
+# plt.plot(fit_hist.history['val_acc'])
 # plt.show()
-#
-# my_sample = np.random.randint(10000)
-# plt.imshow(X_test[my_sample], cmap='gray')
-# print(Y_test[my_sample])
-# pred = model.predict(x_test[my_sample].reshape(-1, 28 * 28))
-# print(pred)
-# print(np.argmax(pred))
+
+
+my_sample = np.random.randint(10000)
+plt.imshow(X_test[my_sample], cmap='gray')
+print(Y_test[my_sample])
+pred = model.predict(x_test[my_sample].reshape(-1, 28 * 28))   #여기에서 결과값을 확인함
+print(pred)
+print(np.argmax(pred))
