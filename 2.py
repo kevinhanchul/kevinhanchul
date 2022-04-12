@@ -1,17 +1,18 @@
-#마트 장보기 프로젝트 (클래스 사용)
+#네이버 영화 리뷰 안에 들어가서 리뷰들의 시퀀스 가져오기
 
-class Mart:
-    def __init__(self, no, item, price, cnt):
-        self.no = no
-        self.item = item
-        self.price = price
-        self.cnt = cnt
+import requests
+from bs4 import BeautifulSoup
 
-    def __str__(self):
-        return "{}{}{}{}".format(self.no, self.item, self.price, self.cnt)
+#clickcr(this, 'rli.uid', '', '', event); showReviewListByNid('4801966');
+url = 'https://movie.naver.com/movie/bi/mi/review.naver?code=176037'
+headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"}
+res = requests.get(url, headers=headers)
+res.raise_for_status()
 
-Mart1 = [0,1,2,3]
 
-Mart1[0] = Mart(1, '아이템', 1500, 3)
-print(Mart1[0].no)
+a = BeautifulSoup(res.text, "lxml")
+# print(a)
 
+a = a.find('span',{'class':'user'})
+a = a.a['onclick'][-10:-3]
+print(a)

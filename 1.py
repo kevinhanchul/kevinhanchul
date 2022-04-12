@@ -11,14 +11,15 @@ res.raise_for_status()
 
 a = BeautifulSoup(res.text, "lxml")
 # a = a.find('ul',{'class':'directory_list'}).a['href']
+
 # print(a)
+# /movie/bi/mi/basic.naver?code=176037
 
 a1 = a.findAll('ul',{'class':'directory_list'})
-print(a1)
 
 for i in a1:
-    print(i)
-    print(i.a['href'])
+    k = i
 
-# print(a1[0])
-
+for i in k:
+    if i.find('a')!=-1:
+        print(i.find('a')['href'][-6:])
