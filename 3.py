@@ -1,3 +1,5 @@
+# 파일에서 리스트 확인
+
 import pandas as pd
 
 column_name = ['a','b','c','d','e','f','g','h']

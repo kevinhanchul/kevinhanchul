@@ -1,73 +1,58 @@
-#타이타닉 로직을 알아보자
+# 그림 맞추기인가?
 
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout
+
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout
-import matplotlib.pyplot as plt
+from tensorflow.keras.layers import Dense
+from tensorflow.keras import datasets
+from keras.utils import np_utils
+
 
 a = pd.read_excel('/workspace/ai_test.xlsx')
 
-a1 = list(a.columns)
-keep = a1.pop(0)
-# print(keep)
-target = a[[keep]]
 
-# a = a.dropna(axis=1, thresh=500)
-# print(target)
-
-value_data = a[['b', 'c']]
-# print(value_data)
-
-scaler = StandardScaler()
-scaled_data = scaler.fit_transform(value_data)
-value_data = pd.DataFrame(scaled_data, columns=value_data.columns)
-# print(value_data)
-
-onehot_data = pd.get_dummies(a,
-            columns=a.columns)
-
-# print(onehot_data)
-
-training_data = pd.concat((onehot_data, value_data), axis=1)
-
-# print(training_data)
-
-X_train, X_test, Y_train, Y_test = train_test_split(
-    training_data, target, test_size=0.2)
-
+(X_train, Y_train), (X_test, Y_test) = datasets.mnist.load_data()
 print(X_train.shape, Y_train.shape)
+print(X_test.shape, Y_test.shape)
 
-# print(X_test.shape, Y_test.shape)
+my_sample = np.random.randint(60000)
+plt.imshow(X_train[my_sample], cmap='gray')
+plt.show()
+
+print(Y_train[my_sample])
+print(X_train[my_sample])
+
+y_train = np_utils.to_categorical(Y_train)
+y_test = np_utils.to_categorical(Y_test)
+print(Y_train[5000])
+print(y_train[5000])
+
+x_train = X_train.reshape(-1, 28 * 28)
+x_test = X_test.reshape(-1, 28 * 28)
+x_train = x_train / 255
+x_test = x_test / 255
+print(x_train.shape)
 
 
-model = Sequential()
-model.add(Dense(128, input_dim=8, activation='relu'))
-model.add(Dropout(0.02))
-model.add(Dense(256, activation='relu'))
-model.add(Dropout(0.02))
-model.add(Dense(512, activation='relu'))
-model.add(Dropout(0.02))
-model.add(Dense(256, activation='relu'))
-model.add(Dropout(0.02))
-model.add(Dense(128, activation='relu'))
-model.add(Dropout(0.02))
-model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.02))
-model.add(Dense(32, activation='relu'))
-model.add(Dropout(0.02))
-model.add(Dense(1, activation='sigmoid'))
-model.summary()
+model.compile(optimizer='adam', loss='categorical_crossentropy',
+              metrics=['accuracy'])
 
-model.compile(loss='mse', optimizer='adam',
-              metrics=['binary_accuracy'])
+print(model.summary())
 
-fit_hist = model.fit(
-    X_train, Y_train, batch_size=50, epochs=10,
-    validation_split=0.2, verbose=1)
+fit_hist = model.fit(x_train, y_train, batch_size=128,
+    epochs=15, validation_split=0.2, verbose=1)
+
+score = model.evaluate(x_test, y_test, verbose=0)
+print('Final test set accurecy :', score[1])
+
+plt.plot(fit_hist.history['accuracy'])
+plt.plot(fit_hist.history['val_accuracy'])
+plt.show()
+
+my_sample = np.random.randint(10000)
+plt.imshow(X_test[my_sample], cmap='gray')
+print(Y_test[my_sample])
+pred = model.predict(x_test[my_sample].reshape(-1, 28 * 28))
+print(pred)
+print(np.argmax(pred))

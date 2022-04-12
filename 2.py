@@ -8,10 +8,16 @@ class Mart:
         self.cnt = cnt
 
     def __str__(self):
-        return "{}{}{}{}".format(self.no, self.item, self.price, self.cnt)
+        return "순번 : {0}, 품목 : {1}, 가격 : {2}, 개수 : {3}".format(self.no, self.item, self.price, self.cnt)
 
-Mart1 = [0,1,2,3]
+Mart1 = []
 
-Mart1[0] = Mart(1, '아이템', 1500, 3)
-print(Mart1[0].no)
+# Mart1.append(5)
+
+Mart1.append(Mart(1, '아이템', 1500, 3))
+Mart1.append(Mart(2, '아이템2', 2500, 2))
+
+print(Mart1)
+
+
 

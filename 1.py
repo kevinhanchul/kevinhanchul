@@ -1,3 +1,4 @@
+#티셔츠 모양 확인
 import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras.models import Sequential
