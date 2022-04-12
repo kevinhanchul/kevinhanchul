@@ -14,9 +14,11 @@ a = BeautifulSoup(res.text, "lxml")
 # print(a)
 
 a1 = a.findAll('ul',{'class':'directory_list'})
-# print(a1)
+print(a1)
 
 for i in a1:
+    print(i)
     print(i.a['href'])
 
+# print(a1[0])
 
